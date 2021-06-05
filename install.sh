@@ -46,6 +46,140 @@ downloadDependencies() {
     fi
 }
 
+copySimbolycLinks(){
+    DIR_CONF=$(pwd)
+    clear 
+    
+    sleep 1
+    echo "[*] Generate symbolic links..."
+
+    if [[ -d $HOME/.config/alacritty ]]; then
+        mkdir $HOME/.config/alacritty.bak && mv $HOME/.config/alacritty/* $HOME/.config/alacritty.bak
+        ln -sf $DIF_CONF/cfg/alacritty $HOME/.config/
+    else
+        ln -sf $DIR_CONF/cfg/alacritty $HOME/.config/
+    fi
+
+    echo "[*] Copied alacritty configuration!"
+    sleep 0.7
+
+    if [[ -d $HOME/.config/bspwm ]]; then
+        mkdir $HOME/.config/bspwm.bak && mv $HOME/.config/bspwm/* $HOME/.config/bspwm.bak
+        ln -sf $DIR_CONF/cfg/bspwm $HOME/.config/
+    else
+        ln -sf $DIR_CONF/cfg/bspwm $HOME/.config/
+    fi
+
+    echo "[*] Copied bspwm configuration!"
+    sleep 0.7
+
+    if [[ -d $HOME/.config/dunst ]]; then
+        mkdir $HOME/.config/dunst.bak && mv $HOME/.config/dunst/* $HOME/.config/dunst.bak
+        ln -sf $DIR_CONF/cfg/dunst $HOME/.config/
+    else
+        ln -sf $DIR_CONF/cfg/dunst $HOME/.config/
+    fi
+
+    echo "[*] Copied dunst configuration!"
+    sleep 0.7
+
+    if [[ -d $HOME/.config/eww ]]; then
+        mkdir $HOME/.config/eww.bak && mv $HOME/.config/eww/* $HOME/.config/eww.bak
+        ln -sf $DIR_CONF/cfg/eww $HOME/.config/
+    else
+        ln -sf $DIR_CONF/cfg/eww $HOME/.config/
+    fi
+
+    echo "[*] Copied eww configuration!"
+    sleep 0.7
+
+    if [[ -d $HOME/.config/nvim ]]; then
+        mkdir $HOME/.config/nvim.bak && mv $HOME/.config/nvim/* $HOME/.config/nvim.bak
+        ln -sf $DIR_CONF/cfg/nvim $HOME/.config/
+    else
+        ln -sf $DIR_CONF/cfg/nvim $HOME/.config/
+    fi
+
+    echo "[*] Copied nvim configuration!"
+    sleep 0.7
+
+    if [[ -d $HOME/.config/picom ]]; then
+        mkdir $HOME/.config/picom.bak && mv $HOME/.config/picom/* $HOME/.config/picom.bak
+        ln -sf $DIR_CONF/cfg/picom $HOME/.config/
+    else
+        ln -sf $DIR_CONF/cfg/picom $HOME/.config/
+    fi
+
+    echo "[*] Copied picom configuration!"
+    sleep 0.7
+
+    if [[ -d $HOME/.config/polybar ]]; then
+        mkdir $HOME/.config/polybar.bak && mv $HOME/.config/polybar/* $HOME/.config/polybar.bak
+        ln -sf $DIR_CONF/cfg/polybar $HOME/.config/
+    else
+        ln -sf $DIR_CONF/cfg/polybar $HOME/.config/
+    fi
+
+    echo "[*] Copied polybar configuration!"
+    sleep 0.7
+
+    if [[ -d $HOME/.config/starship ]]; then
+        mkdir $HOME/.config/starship.bak && mv $HOME/.config/starship/* $HOME/.config/starship.bak
+        ln -sf $DIR_CONF/cfg/starship $HOME/.config/
+    else
+        ln -sf $DIR_CONF/cfg/starship $HOME/.config/
+    fi
+
+    echo "[*] Copied starship configuration!"
+    sleep 0.7
+
+    if [[ -d $HOME/.config/sxhkd ]]; then
+        mkdir $HOME/.config/sxhkd.bak && mv $HOME/.config/sxhkd/* $HOME/.config/sxhkd.bak
+        ln -sf $DIR_CONF/cfg/sxhkd $HOME/.config/
+    else
+        ln -sf $DIR_CONF/cfg/sxhkd $HOME/.config/
+    fi
+
+    echo "[*] Copied sxhkd configuration!"
+    sleep 0.7
+
+    if [[ -d $HOME/.config/rofi ]]; then
+        mkdir $HOME/.config/rofi.bak && mv $HOME/.config/rofi/* $HOME/.config/rofi.bak
+        ln -sf $DIR_CONF/cfg/rofi $HOME/.config/
+    else
+        ln -sf $DIR_CONF/cfg/rofi $HOME/.config/
+    fi
+
+    echo "[*] Copied rofi configuration!"
+    sleep 0.7
+
+    if [[ -d $HOME/.local/bin ]]; then
+        cp -r ./bin/* $HOME/.local/bin
+    else
+        mkdir $HOME/.local/bin && cp -r ./bin/* $HOME/.local/bin
+    fi
+
+    if [ -d $HOME/.local/share/fonts ]; then
+        cp -r ./etc/fonts/* $HOME/.local/share/fonts
+    else
+        mkdir $HOME/.local/share/fonts && cp -r ./etc/fonts/* $HOME/.local/share/fonts
+    fi
+
+    if [ -d $HOME/Pictures/Wallpapers ]; then
+        cp -r ./etc/walls/Stars.png $HOME/Pictures/Wallpapers 
+    else 
+        mkdir $HOME/Pictures/Wallpapers && cp -r ./etc/walls/gruv.png $HOME/Pictures/Wallpapers
+    fi
+
+    echo "[*] Copied binaries, fonts and wallpapers successfully!"
+
+    sleep 0.7
+    echo "[*] Copied files successfully."
+    sleep 1.3
+
+
+}
+
 copyFiles() {
     clear
 
@@ -252,7 +386,8 @@ downloadDependencies
 installOutherModules
 
 # Copy files from the repo to $HOME/.config
-copyFiles
+#copyFiles
+copySimbolycLinks
 
 # Restart everything lol
 finalizeChanges
