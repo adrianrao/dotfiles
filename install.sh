@@ -218,9 +218,8 @@ installOutherModules(){
     #install oh my zsh
     if [[ -e /usr/bin/zsh ]]; then
         sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-        chsh -s `which zsh`
-
-        rm $HOME/.zshrc && ln -sf $DIR_CONF/.zshrc $HOME/
+        rm $HOME/.zshrc
+        ln -sf $DIR_CONF/.zshrc $HOME/
     fi
         #install plug vim 
     if [[ -e /usr/bin/nvim ]]; then
