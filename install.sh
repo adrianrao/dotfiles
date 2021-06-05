@@ -15,10 +15,10 @@ downloadDependencies() {
 
         if [[ -e /usr/bin/paru ]]; then
             echo -e "[*] paru detected. Installing dependencies..."
-            paru -S bspwm sxhkd rofi polybar neovim-nightly-bin alacritty dunst picom brightnessctl playerctl dunst hsetroot maim viewnior jq xclip bsp-layout
+            paru -S bspwm sxhkd rofi polybar neovim-nightly-bin alacritty dunst picom brightnessctl playerctl dunst hsetroot maim viewnior jq xclip bsp-layout zsh
         elif [[ -e /usr/bin/yay ]]; then
             echo -e "[*] yay detected. Installing dependencies..."
-            yay -S bspwm sxhkd rofi polybar neovim-nightly-bin alacritty dunst picom brightnessctl playerctl dunst hsetroot maim viewnior jq xclip bsp-layout
+            yay -S bspwm sxhkd rofi polybar neovim-nightly-bin alacritty dunst picom brightnessctl playerctl dunst hsetroot maim viewnior jq xclip bsp-layout zsh
         else
             read -r -p "Would you like to install yay? [Y/n]: " yay
             sleep 1.5
@@ -29,7 +29,7 @@ downloadDependencies() {
                     (cd $HOME/.setup-scripto && makepkg -si)
 
                     echo "[*] yay installed. Installing dependencies..."
-                    yay -S bspwm sxhkd rofi polybar neovim-nightly-bin alacritty picom brightnessctl playerctl dunst hsetroot maim viewnior jq xclip bsp-layout
+                    yay -S bspwm sxhkd rofi polybar neovim-nightly-bin alacritty picom brightnessctl playerctl dunst hsetroot maim viewnior jq xclip bsp-layout zsh
                     ;;
                 [nN])
                     echo "[*] Okay. Will not install yay."
@@ -180,138 +180,6 @@ copySimbolycLinks(){
 
 }
 
-copyFiles() {
-    clear
-
-    sleep 1
-    echo "[*] Copying files..."
-    echo "[*] Will make backups if there are configurations found."
-
-    if [[ -d $HOME/.config/alacritty ]]; then
-        mkdir $HOME/.config/alacritty.bak && mv $HOME/.config/alacritty/* $HOME/.config/alacritty.bak
-        cp -r ./cfg/alacritty/* $HOME/.config/alacritty/
-    else
-        mkdir $HOME/.config/alacritty && cp -r ./cfg/alacritty/* $HOME/.config/alacritty
-    fi
-
-    echo "[*] Copied alacritty configuration!"
-    sleep 0.7
-
-    if [[ -d $HOME/.config/bspwm ]]; then
-        mkdir $HOME/.config/bspwm.bak && mv $HOME/.config/bspwm/* $HOME/.config/bspwm.bak
-        cp -r ./cfg/bspwm/* $HOME/.config/bspwm/
-    else
-        mkdir $HOME/.config/bspwm && cp -r ./cfg/bspwm/* $HOME/.config/bspwm
-    fi
-
-    echo "[*] Copied bspwm configuration!"
-    sleep 0.7
-
-    if [[ -d $HOME/.config/dunst ]]; then
-        mkdir $HOME/.config/dunst.bak && mv $HOME/.config/dunst/* $HOME/.config/dunst.bak
-        cp -r ./cfg/dunst/* $HOME/.config/dunst/
-    else
-        mkdir $HOME/.config/dunst && cp -r ./cfg/dunst/* $HOME/.config/dunst
-    fi
-
-    echo "[*] Copied dunst configuration!"
-    sleep 0.7
-
-    if [[ -d $HOME/.config/eww ]]; then
-        mkdir $HOME/.config/eww.bak && mv $HOME/.config/eww/* $HOME/.config/eww.bak
-        cp -r ./cfg/eww/* $HOME/.config/eww/
-    else
-        mkdir $HOME/.config/eww && cp -r ./cfg/eww/* $HOME/.config/eww
-    fi
-
-    echo "[*] Copied eww configuration!"
-    sleep 0.7
-
-    if [[ -d $HOME/.config/nvim ]]; then
-        mkdir $HOME/.config/nvim.bak && mv $HOME/.config/nvim/* $HOME/.config/nvim.bak
-        cp -r ./cfg/nvim/* $HOME/.config/nvim/
-    else
-        mkdir $HOME/.config/nvim && cp -r ./cfg/nvim/* $HOME/.config/nvim
-    fi
-
-    echo "[*] Copied nvim configuration!"
-    sleep 0.7
-
-    if [[ -d $HOME/.config/picom ]]; then
-        mkdir $HOME/.config/picom.bak && mv $HOME/.config/picom/* $HOME/.config/picom.bak
-        cp -r ./cfg/picom/* $HOME/.config/picom/
-    else
-        mkdir $HOME/.config/picom && cp -r ./cfg/picom/* $HOME/.config/picom
-    fi
-
-    echo "[*] Copied picom configuration!"
-    sleep 0.7
-
-    if [[ -d $HOME/.config/polybar ]]; then
-        mkdir $HOME/.config/polybar.bak && mv $HOME/.config/polybar/* $HOME/.config/polybar.bak
-        cp -r ./cfg/polybar/* $HOME/.config/polybar/
-    else
-        mkdir $HOME/.config/polybar && cp -r ./cfg/polybar/* $HOME/.config/polybar
-    fi
-
-    echo "[*] Copied polybar configuration!"
-    sleep 0.7
-
-    if [[ -d $HOME/.config/starship ]]; then
-        mkdir $HOME/.config/starship.bak && mv $HOME/.config/starship/* $HOME/.config/starship.bak
-        cp -r ./cfg/starship/* $HOME/.config/starship/
-    else
-        mkdir $HOME/.config/starship && cp -r ./cfg/starship/* $HOME/.config/starship
-    fi
-
-    echo "[*] Copied starship configuration!"
-    sleep 0.7
-
-    if [[ -d $HOME/.config/sxhkd ]]; then
-        mkdir $HOME/.config/sxhkd.bak && mv $HOME/.config/sxhkd/* $HOME/.config/sxhkd.bak
-        cp -r ./cfg/sxhkd/* $HOME/.config/sxhkd/
-    else
-        mkdir $HOME/.config/sxhkd && cp -r ./cfg/sxhkd/* $HOME/.config/sxhkd
-    fi
-
-    echo "[*] Copied sxhkd configuration!"
-    sleep 0.7
-
-    if [[ -d $HOME/.config/rofi ]]; then
-        mkdir $HOME/.config/rofi.bak && mv $HOME/.config/rofi/* $HOME/.config/rofi.bak
-        cp -r ./cfg/rofi/* $HOME/.config/rofi/
-    else
-        mkdir $HOME/.config/rofi && cp -r ./cfg/rofi/* $HOME/.config/rofi
-    fi
-
-    echo "[*] Copied rofi configuration!"
-    sleep 0.7
-
-    if [[ -d $HOME/.local/bin ]]; then
-        cp -r ./bin/* $HOME/.local/bin
-    else
-        mkdir $HOME/.local/bin && cp -r ./bin/* $HOME/.local/bin
-    fi
-
-    if [ -d $HOME/.local/share/fonts ]; then
-        cp -r ./etc/fonts/* $HOME/.local/share/fonts
-    else
-        mkdir $HOME/.local/share/fonts && cp -r ./etc/fonts/* $HOME/.local/share/fonts
-    fi
-
-    if [ -d $HOME/Pictures/Wallpapers ]; then
-        cp -r ./etc/walls/Stars.png $HOME/Pictures/Wallpapers 
-    else 
-        mkdir $HOME/Pictures/Wallpapers && cp -r ./etc/walls/gruv.png $HOME/Pictures/Wallpapers
-    fi
-
-    echo "[*] Copied binaries, fonts and wallpapers successfully!"
-
-    sleep 0.7
-    echo "[*] Copied files successfully."
-    sleep 1.3
-}
-
 finalizeChanges() {
     clear
     echo "[*] Refreshing font cache..."
@@ -348,10 +216,13 @@ success() {
 
 installOutherModules(){
     #install oh my zsh
-    sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    chsh -s `which zsh`
+    if [[ -e /usr/bin/zsh ]]; then
+        sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+        chsh -s `which zsh`
 
-    #install plug vim 
+        rm $HOME/.zshrc && ln -sf $DIR_CONF/.zshrc $HOME/
+    fi
+        #install plug vim 
     if [[ -e /usr/bin/nvim ]]; then
         sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
             https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
