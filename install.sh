@@ -48,7 +48,7 @@ downloadDependencies() {
 
 copyFiles() {
     clear
-    
+
     sleep 1
     echo "[*] Copying files..."
     echo "[*] Will make backups if there are configurations found."
@@ -202,7 +202,7 @@ welcome() {
     whiptail --title "$title" \
         --no-button "Exit" --yes-button "Continue" \
         --yesno "This process will download the needed dependencies and copy the config files to $HOME/.config. Would you like to continue?" 10 70
-}
+    }
 
 success() {
     # Remove the custom directory made by the script
@@ -210,6 +210,33 @@ success() {
 
     whiptail --title "$title" \
         --msgbox "Setup success. Please restart BSPWM if you are on an active session. Check notes on the repository's README." 20 50
+    }
+
+installOutherModules(){
+    #install oh my zsh
+    sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    chsh -s `which zsh`
+
+    #install plug vim 
+    if [[ -e /usr/bin/nvim ]]; then
+        sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    elif [[ -e /usr/bin/vim ]]; then
+        curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    else
+        read -r -p "Would you like install nvim? [Y/n]: " nvim
+        sleep 1.5
+
+        case $nvim in
+            [yY][*])
+                yay -S nvim
+                ;;
+            [nN])
+                echo "[*] Okay. Will not install nvim."
+                ;;
+        esac
+    fi
 }
 
 echo "[*] Starting setup script..."
@@ -220,6 +247,9 @@ welcome || fuckUser
 
 # Download dependencies
 downloadDependencies
+
+# Install outher modules
+installOutherModules
 
 # Copy files from the repo to $HOME/.config
 copyFiles
